@@ -41,8 +41,10 @@ var renderMiddleware = require('./middlewares/render');
 var logger = require('./common/logger');
 var helmet = require('helmet');
 var bytes = require('bytes')
-
-
+import { matchRoutes } from 'react-router-config';
+import { getStore } from './client/store'
+import routes from './client/Routes';
+import {render} from './utils';
 // 静态文件目录
 var staticDir = path.join(__dirname, 'public');
 // assets
@@ -157,8 +159,8 @@ app.use(busboy({
 }));
 
 // routes
-app.use('/api/v1', cors(), apiRouterV1);
-app.use('/', webRouter);
+/* app.use('/api/v1', cors(), apiRouterV1);
+app.use('/', webRouter); */
 
 // error handler
 if (config.debug) {
@@ -179,4 +181,31 @@ if (!module.parent) {
   });
 }
 
+app.get('*', function (req, res) {
+    const store = getStore();
+  // 根据路由的路径，来往store里面加数据
+  const matchedRoutes = matchRoutes(routes, req.path);
+  const promises = [];
+  matchedRoutes.forEach(item => {
+    if (item.route.loadData) {
+      const promise = new Promise((resolve, reject) => {
+        item.route.loadData(store).then(resolve).catch(resolve);
+      })
+      promises.push(promise);
+    };
+  });
+  Promise.all(promises).then(() => {
+    let context = {css: []};
+    const html = render(store, routes, req, context);
+
+    if(context.action === 'REPLACE') {
+      res.redirect(301, context.url);
+    } else if(context.NotFound) {
+      res.status(404);
+      res.send(html);
+    } else {
+      res.send(html);
+    }
+  })
+})
 module.exports = app;
