@@ -100,18 +100,20 @@ exports.index = function (req, res, next) {
   var tabName = renderHelper.tabName(tab);
   proxy.all('topics', 'tops', 'no_reply_topics', 'pages',
     function (topics, tops, no_reply_topics, pages) {
-        console.log('sfs')
-      res.json({
-        topics: topics,
-        current_page: page,
-        list_topic_count: limit,
-        tops: tops,
-        no_reply_topics: no_reply_topics,
-        pages: pages,
-        tabs: config.tabs,
-        tab: tab,
-        pageTitle: tabName && (tabName + '版块'),
-      });
+        const data = {
+            topics: topics,
+            current_page: page,
+            list_topic_count: limit,
+            tops: tops,
+            no_reply_topics: no_reply_topics,
+            pages: pages,
+            tab: tab,
+            pageTitle: tabName && (tabName + '版块'),
+        }
+        if ( !req.query.tab ) {
+            data.tabs = config.tabs
+        }
+      res.json(data);
     });
 };
 

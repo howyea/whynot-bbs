@@ -18,10 +18,8 @@ export const getHomeList = () => {
       });
   };
 }
-export const getSiteIndexList = async() => {
-      const result = await ajax_get('/site_index');
+export const getSiteIndexList = async(params = {}) => {
+      const result = await ajax_get('/site_index', params);
       console.log(result.tabs);
-     return {
-         tabs: result.tabs
-     }
+     return result;
   }

@@ -27,6 +27,7 @@ class Home extends Component {
         this.setState({
             tab
         });
+        getSiteIndexList({tab});
     };
   render() {
     const { list } = this.props
