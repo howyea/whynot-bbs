@@ -100,7 +100,8 @@ exports.index = function (req, res, next) {
   var tabName = renderHelper.tabName(tab);
   proxy.all('topics', 'tops', 'no_reply_topics', 'pages',
     function (topics, tops, no_reply_topics, pages) {
-      res.render('index', {
+        console.log('sfs')
+      res.json({
         topics: topics,
         current_page: page,
         list_topic_count: limit,

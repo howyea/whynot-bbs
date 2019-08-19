@@ -5,7 +5,7 @@ nodemon({
   execMap: {
     js: 'node'
   },
-  script: path.join(__dirname, 'app'),
+  script: path.join(__dirname, 'build/bundle.js'),
   ignore: [],
   watch: process.env.NODE_ENV !== 'production' ? ['*'] : false,
   ext: 'js'

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {url_for, ajax_get} from '../../agency_file';
 import { CHANGE_LIST } from "./constants";
 
 //普通action
@@ -17,3 +18,10 @@ export const getHomeList = () => {
       });
   };
 }
+export const getSiteIndexList = async() => {
+      const result = await ajax_get('/site_index');
+      console.log(result.tabs);
+     return {
+         tabs: result.tabs
+     }
+  }

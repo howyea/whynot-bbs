@@ -23,6 +23,13 @@ export const render = (req) => {
     <html>
       <head>
         <title>ssr</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,minimal-ui:ios">   
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="format-detection" content="telephone=yes"/>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.21.4/antd.min.css"
+            crossorigin="anonymous"/>
       </head>
       <body>
         <div id="root">${content}</div>

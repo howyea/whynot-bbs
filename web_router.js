@@ -28,7 +28,7 @@ var config = require('./config');
 var router = express.Router();
 
 // home page
-router.get('/', site.index);
+router.get('/site_index', site.index);
 // sitemap
 router.get('/sitemap.xml', site.sitemap);
 // mobile app download
