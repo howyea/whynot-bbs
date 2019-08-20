@@ -17,5 +17,5 @@ const App = () => {
     </Provider>
   )
 }
-
-ReactDom.hydrate(<App />, document.getElementById('root'))
+const renderMethod = !!module.hot ? ReactDom.render : ReactDom.hydrate;
+renderMethod(<App />, document.getElementById('root'))

@@ -183,17 +183,17 @@ exports.activeAccount = function (req, res, next) {
     }
     var passhash = user.pass;
     if (!user || utility.md5(user.email + passhash + config.session_secret) !== key) {
-      return res.render('notify/notify', {error: '信息有误，帐号无法被激活。'});
+       res.json({error: '信息有误，帐号无法被激活。'});
     }
     if (user.active) {
-      return res.render('notify/notify', {error: '帐号已经是激活状态。'});
+         res.json({error: '帐号已经是激活状态。'});
     }
     user.active = true;
     user.save(function (err) {
       if (err) {
         return next(err);
       }
-      res.render('notify/notify', {success: '帐号已被激活，请登录'});
+      res.json({success: '帐号已被激活，请登录'});
     });
   });
 };

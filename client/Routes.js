@@ -1,6 +1,7 @@
 import Home from './Home';
 import Login from './Login';
 import Register from './Register';
+import ValidateEmail from "./ValidateEmail";
 
 import App from './App';
 
@@ -21,6 +22,11 @@ export default [{
       {
         path: '/register',
         component: Register,
+        exact: true,
+      },
+      {
+        path: '/validate_email',
+        component: ValidateEmail,
         exact: true,
       }
     ]

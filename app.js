@@ -65,11 +65,11 @@ config.hostname = urlinfo.hostname || config.host;
 var app = express();
 
 // configuration in all env
-app.set('views', path.join(__dirname, 'views'));
+/* app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 app.engine('html', require('ejs-mate'));
 app.locals._layoutFile = 'layout.html';
-app.enable('trust proxy');
+app.enable('trust proxy'); */
 
 // Request logger。请求时间
 app.use(requestLog);
@@ -160,7 +160,7 @@ app.use(busboy({
 
 // routes
 app.use('/api/v1', cors(), apiRouterV1);
-app.use('/', webRouter);
+app.use('/api/v2', webRouter);
 
 // error handler
 if (config.debug) {

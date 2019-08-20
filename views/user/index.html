@@ -70,7 +70,7 @@
       <br/><br/>
       Email (Seen by Administrator): <a href="mailto:<%= user.email %>"><%= user.email %></a>
       <% if (!user.active) { %>
-      <a href="/active_account?key=<%- typeof(token) !== 'undefined' && token %>&name=<%= user.loginname %>"
+      <a href="/validate_email?key=<%- typeof(token) !== 'undefined' && token %>&name=<%= user.loginname %>"
          target="_blank">
          <span class="span-common">
            激活账号
