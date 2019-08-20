@@ -107,15 +107,14 @@ var notJump = [
  * @param {Function} next
  */
 exports.login = function (req, res, next) {
-  var loginname = validator.trim(req.body.name).toLowerCase();
+  var loginname = validator.trim(req.body.loginname).toLowerCase();
   var pass      = validator.trim(req.body.pass);
   var ep        = new eventproxy();
 
-  ep.fail(next);
-
+  ep.fail(next); 
   if (!loginname || !pass) {
     res.status(422);
-    return res.render('sign/signin', { error: '信息不完整。' });
+    res.json({ error: '信息不完整。' });
   }
 
   var getUser;
@@ -126,8 +125,7 @@ exports.login = function (req, res, next) {
   }
 
   ep.on('login_error', function (login_error) {
-    res.status(403);
-    res.render('sign/signin', { error: '用户名或密码错误' });
+    res.json({ error: '用户名或密码错误' });
   });
 
   getUser(loginname, function (err, user) {
@@ -145,8 +143,7 @@ exports.login = function (req, res, next) {
       if (!user.active) {
         // 重新发送激活邮件
         mail.sendActiveMail(user.email, utility.md5(user.email + passhash + config.session_secret), user.loginname);
-        res.status(403);
-        return res.render('sign/signin', { error: '此帐号还没有被激活，激活链接已发送到 ' + user.email + ' 邮箱，请查收。' });
+        return res.json({ error: '此帐号还没有被激活，激活链接已发送到 ' + user.email + ' 邮箱，请查收。' });
       }
       // store session cookie
       authMiddleWare.gen_session(user, res);
@@ -158,7 +155,9 @@ exports.login = function (req, res, next) {
           break;
         }
       }
-      res.redirect(refer);
+      res.json({
+            success: '登录成功'
+      });
     }));
   });
 };
