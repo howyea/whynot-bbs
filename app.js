@@ -119,7 +119,7 @@ passport.deserializeUser(function (user, done) {
 passport.use(new GitHubStrategy(config.GITHUB_OAUTH, githubStrategyMiddleware));
 
 // custom middleware
-app.use(auth.authUser);
+// app.use(auth.authUser);
 app.use(auth.blockUser());
 
 /* if (!config.debug) {
@@ -181,7 +181,7 @@ if (!module.parent) {
   });
 }
 
-app.get('*', function (req, res) {
+app.get('*', function (req, res, next) {
     const store = getStore();
   // 根据路由的路径，来往store里面加数据
   const matchedRoutes = matchRoutes(routes, req.path);

@@ -28,7 +28,7 @@ var config = require('./config');
 var router = express.Router();
 
 // home page
-router.get('/site_index', site.index);
+router.get('/site_index', [auth.authUser], site.index);
 // sitemap
 router.get('/sitemap.xml', site.sitemap);
 // mobile app download
@@ -46,7 +46,7 @@ if (config.allow_sign_up) {
 }
 router.post('/signout', sign.signout);  // 登出
 router.get('/signin', sign.showLogin);  // 进入登录页面
-router.post('/signin', sign.login);  // 登录校验
+router.post('/signin', [auth.authUser], sign.login);  // 登录校验
 router.get('/active_account', sign.activeAccount);  //帐号激活
 
 router.get('/search_pass', sign.showSearchPass);  // 找回密码页面
