@@ -1,4 +1,5 @@
 import request from 'superagent'
+import { message } from 'antd';
 export const url_for = (resource, interfaceName, id) => {
     switch (process.env.NODE_ENV) {
         case 'development':
@@ -14,15 +15,17 @@ async function interface_require(ajax_action, _url, param = null) {
     let result  = null 
     if(ajax_action == 'post') {
         result  = await request[ajax_action](_url, param).set('Content-Type','application/x-www-form-urlencoded').catch(function (error){
-            alert(error);
-            Toast.fail('服务器出错了！亲1',2);        
+            message.error('服务器出错了！亲1',2);        
             return false
         });
     }else {
         result = await request[ajax_action](_url, param).catch(function (error){
-            Toast.fail('服务器出错了！亲2',2);        
+            message.error('服务器出错了！亲2',2);        
             return false
         });
+    }
+    if (result.body.error) {
+        message.error(result.body.error,2);
     }
     return result.body;
 }

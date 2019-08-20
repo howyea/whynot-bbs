@@ -8,10 +8,10 @@ const  App = (props) => {
   return (
     <Layout>
         <Header {...props}></Header>
-        <Content style={{ marginTop: 64 }}>
+        <Content style={{ marginTop: 64, backgroundColor:'#fff' }}>
             {renderRoutes(props.route.routes)}
         </Content>
-    <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+    {/* <Footer style={{ textAlign: 'center', position: 'fixed', bottom: 0 }}>Ant Design ©2018 Created by Ant UED</Footer> */}
   </Layout>
   )
 };

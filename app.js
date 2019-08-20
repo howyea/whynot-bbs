@@ -122,16 +122,16 @@ passport.use(new GitHubStrategy(config.GITHUB_OAUTH, githubStrategyMiddleware));
 app.use(auth.authUser);
 app.use(auth.blockUser());
 
-if (!config.debug) {
+/* if (!config.debug) {
   app.use(function (req, res, next) {
     if (req.path === '/api' || req.path.indexOf('/api') === -1) {
-      csurf()(req, res, next);
+    //   csurf()(req, res, next);
       return;
     }
     next();
   });
   app.set('view cache', true);
-}
+} */
 
 // for debug
 // app.get('/err', function (req, res, next) {
@@ -147,10 +147,10 @@ _.extend(app.locals, {
 
 app.use(errorPageMiddleware.errorPage);
 _.extend(app.locals, require('./common/render_helper'));
-app.use(function (req, res, next) {
+/* app.use(function (req, res, next) {
   res.locals.csrf = req.csrfToken ? req.csrfToken() : '';
   next();
-});
+}); */
 
 app.use(busboy({
   limits: {

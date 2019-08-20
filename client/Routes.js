@@ -1,5 +1,6 @@
 import Home from './Home';
 import Login from './Login';
+import Register from './Register';
 
 import App from './App';
 
@@ -15,6 +16,11 @@ export default [{
       {
         path: '/login',
         component: Login,
+        exact: true,
+      },
+      {
+        path: '/register',
+        component: Register,
         exact: true,
       }
     ]
