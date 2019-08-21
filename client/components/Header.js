@@ -30,7 +30,7 @@ const Head = (props) => {
                 <Menu.Item key="1" route="/">首页</Menu.Item>
                 <Menu.Item key="2"  route="/login">登录</Menu.Item>
                 <Menu.Item key="3"  route="/register">注册</Menu.Item>
-                <Menu.Item key="4"  route="/validate_email">验证账号</Menu.Item>
+                <Menu.Item key="4"  route="/Edit">新增话题</Menu.Item>
             </Menu>
             </Col>
         </Row>

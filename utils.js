@@ -1,4 +1,3 @@
-import routes from './client/Routes';
 import { renderToString } from 'react-dom/server';
 //重要是要用到StaticRouter
 import { StaticRouter } from 'react-router-dom'; 
@@ -8,10 +7,12 @@ import React from 'react'
 import Home from './client/Home';
 import { renderRoutes } from 'react-router-config';
 
-export const render = (req) => {
+export const render = (store, routes, req, context) => {
   //构建服务端的路由
+  
+  
   const content = renderToString(
-    <Provider store={getStore()}>
+    <Provider store={store}>
       <StaticRouter location={req.path} >
       <div>
       {renderRoutes(routes)}
@@ -30,6 +31,14 @@ export const render = (req) => {
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.21.4/antd.min.css"
             crossorigin="anonymous"/>
+            <link
+            rel="stylesheet"
+            href="/public/libs/editor/editor.css"
+            crossorigin="anonymous"/>
+            <link
+            rel="stylesheet"
+            href="/public/libs/webuploader/webuploader.css"
+            crossorigin="anonymous"/>
       </head>
       <body>
         <div id="root">${content}</div>
@@ -38,6 +47,9 @@ export const render = (req) => {
             state: ${JSON.stringify(getStore())}
           }
         </script>
+        <script  src="/public/libs/jquery-2.1.0.js"></script>
+        <script  src="/public/libs/markdownit.js"></script>
+        <script  src="/public/libs/editor/editor.js"></script>
         <script  src="/public/index.js"></script>
       </body>
     </html>
