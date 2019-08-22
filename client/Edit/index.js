@@ -1,33 +1,45 @@
 import React, { Component } from 'react';
 import { Input, Select, Button } from 'antd';
-
+import { topic_create } from "./request";
 const { TextArea } = Input;
 const { Option } = Select;
 class Edit extends Component {
-    state = {  }
+    params = { 
+        title: '',
+        tab: '',
+        content: ''
+     }
     componentDidMount() {
+        const _this = this;
         var editor = new Editor();
         editor.render($('.editor')[0]);
+        $('textarea').bind('input propertychange', function() {
+            _this.params.content = $(this).val();
+        });
     }
     render() { 
         return ( 
             <div>
-                <Select defaultValue="请选择" style={{ width: 120 }}>
+                <Select defaultValue="请选择" style={{ width: 120 }} onSelect={(value) => {
+                    this.params.tab = value;
+                }}>
                     <Option value="">请选择</Option>
                     <Option value="share">分享</Option>
                     <Option value="ask">问答</Option>
                     <Option value="job">招聘</Option>
                 </Select>
-                <Input placeholder="标题字数 10 字以上" />
+                <Input placeholder="标题字数 10 字以上" onChange={(e) => {
+                    this.params.title = e.target.value;
+                }}/>
                 <div className='markdown_editor in_editor'>
                     <div className='markdown_in_editor'>
-                        <textarea className='editor' name='t_content' rows='20'
-                                placeholder='文章支持 Markdown 语法, 请注意标记代码'
-                                ></textarea>
-
-                        <div className='editor_buttons'>
-                        <Button>提交</Button>
-                        </div>
+                        <TextArea id="TextArea" className='editor' rows='20'
+                            placeholder='文章支持 Markdown 语法, 请注意标记代码'
+                            ></TextArea>
+                        <Button onClick={() => {
+                            topic_create(this.params);
+                            this.props.history.push('/');
+                        }}>提交</Button>
                     </div>
 
                 </div>

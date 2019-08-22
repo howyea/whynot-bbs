@@ -121,7 +121,7 @@ exports.create = function (req, res, next) {
 exports.put = function (req, res, next) {
   var title   = validator.trim(req.body.title);
   var tab     = validator.trim(req.body.tab);
-  var content = validator.trim(req.body.t_content);
+  var content = validator.trim(req.body.content);
 
   // 得到所有的 tab, e.g. ['ask', 'share', ..]
   var allTabs = config.tabs.map(function (tPair) {
@@ -143,8 +143,8 @@ exports.put = function (req, res, next) {
 
   if (editError) {
     res.status(422);
-    return res.render('topic/edit', {
-      edit_error: editError,
+    return res.json({
+      error: editError,
       title: title,
       content: content,
       tabs: config.tabs
@@ -159,7 +159,10 @@ exports.put = function (req, res, next) {
     var proxy = new EventProxy();
 
     proxy.all('score_saved', function () {
-      res.redirect('/topic/' + topic._id);
+    //   res.redirect('/topic/' + topic._id);
+    res.json({
+        success: '提交成功'
+    })
     });
     proxy.fail(next);
     User.getUserById(req.session.user._id, proxy.done(function (user) {
@@ -172,6 +175,7 @@ exports.put = function (req, res, next) {
 
     //发送at消息
     at.sendMessageToMentionUsers(content, topic._id, req.session.user._id);
+    
   });
 };
 
