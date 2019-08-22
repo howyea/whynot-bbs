@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getHomeList, getSiteIndexList } from './store/actions'
-import { Layout, Breadcrumb,List, Typography, Tag } from 'antd';
-import { ListHead } from "./styled";
+import { Layout, Breadcrumb,List, Typography, Tag, Pagination } from 'antd';
+import { Styled,ListHead } from "./styled";
 
 const { Content } = Layout;
 const { CheckableTag } = Tag;
@@ -11,27 +11,50 @@ const { CheckableTag } = Tag;
 class Home extends Component {
     state = {
         tabs: [],
-        tab: 'all'
+        tab: 'all',
+        topics: [],
+        current_page: 0,
+        list_topic_count: 0,
+        pages: 0
     }
     async componentDidMount() {
-        const { tabs } = await getSiteIndexList()
-        if (!this.props.list.length) {
-             this.props.getHomeList();
-        }
+        const { 
+            tabs,
+            topics,
+            current_page,
+            list_topic_count,
+            pages 
+        } = await getSiteIndexList();
         this.setState({
-            tabs
+            tabs, topics,
+            current_page,
+            list_topic_count,
+            pages 
         });
       }
-    handleChange = (tab) => {
-        console.log(tab)
+      handleChange = async(tab) => {
+        const { 
+            topics,
+            current_page,
+            list_topic_count,
+            pages 
+        } = await getSiteIndexList({tab});
         this.setState({
-            tab
+            tab,
+            topics,
+            current_page,
+            list_topic_count,
+            pages 
         });
-        getSiteIndexList({tab});
     };
   render() {
-    const { list } = this.props
-    return <List
+    const { 
+        topics,
+        current_page,
+        list_topic_count,
+        pages 
+    } = this.state
+    return <Styled><List
         style={{backgroundColor: "#fff",margin:"20 auto"}}
         header={<ListHead>
             <CheckableTag className="tab" checked={this.state.tab == 'all'} onChange={() => {
@@ -45,15 +68,16 @@ class Home extends Component {
                 })
             }
         </ListHead>}
-        footer={<div>Footer</div>}
         bordered
-        dataSource={list}
+        dataSource={topics}
         renderItem={item => (
         <List.Item>
             <Typography.Text mark>[ITEM]</Typography.Text> {item.title}
         </List.Item>
         )}
     />
+     <Pagination current={current_page} pageSize={list_topic_count} size="small" total={pages*list_topic_count} />
+    </Styled>
   }
 }
 

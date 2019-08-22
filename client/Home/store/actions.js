@@ -20,6 +20,5 @@ export const getHomeList = () => {
 }
 export const getSiteIndexList = async(params = {}) => {
       const result = await ajax_get('/api/v2/site_index', params);
-      console.log(result.tabs);
      return result;
   }
