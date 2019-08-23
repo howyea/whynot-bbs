@@ -71,7 +71,9 @@ class Home extends Component {
         bordered
         dataSource={topics}
         renderItem={item => (
-        <List.Item>
+        <List.Item onClick={() => {
+            this.props.history.push(`/topic_detail?id=${item._id}`)
+        }}>
             <Typography.Text mark>[ITEM]</Typography.Text> {item.title}
         </List.Item>
         )}

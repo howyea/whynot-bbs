@@ -119,7 +119,7 @@ passport.deserializeUser(function (user, done) {
 passport.use(new GitHubStrategy(config.GITHUB_OAUTH, githubStrategyMiddleware));
 
 // custom middleware
-// app.use(auth.authUser);
+app.use(auth.authUser);
 app.use(auth.blockUser());
 
 /* if (!config.debug) {

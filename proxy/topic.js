@@ -140,6 +140,7 @@ exports.getFullTopic = function (id, callback) {
     }
     at.linkUsers(topic.content, proxy.done('topic', function (str) {
       topic.linkedContent = str;
+      
       return topic;
     }));
 

@@ -34,22 +34,23 @@ exports.index = function (req, res, next) {
     }
     return reply.ups.indexOf(user._id) !== -1;
   }
-
   var topic_id = req.params.tid;
   var currentUser = req.session.user;
-
+  const is_admin = req.session.user.is_admin;
   if (topic_id.length !== 24) {
     return res.render404('此话题不存在或已被删除。');
   }
   var events = ['topic', 'other_topics', 'no_reply_topics', 'is_collect'];
   var ep = EventProxy.create(events,
     function (topic, other_topics, no_reply_topics, is_collect) {
-    res.render('topic/index', {
-      topic: topic,
+
+    res.json({
+      topic: {...topic._doc, linkedContent:topic.linkedContent},
       author_other_topics: other_topics,
       no_reply_topics: no_reply_topics,
       is_uped: isUped,
       is_collect: is_collect,
+      is_admin
     });
   });
 
@@ -127,7 +128,6 @@ exports.put = function (req, res, next) {
   var allTabs = config.tabs.map(function (tPair) {
     return tPair[0];
   });
-
   // 验证
   var editError;
   if (title === '') {
@@ -155,7 +155,6 @@ exports.put = function (req, res, next) {
     if (err) {
       return next(err);
     }
-
     var proxy = new EventProxy();
 
     proxy.all('score_saved', function () {
@@ -319,7 +318,7 @@ exports.top = function (req, res, next) {
         return next(err);
       }
       var msg = topic.top ? '此话题已置顶。' : '此话题已取消置顶。';
-      res.render('notify/notify', {success: msg, referer: referer});
+      res.json({success: msg, referer: referer});
     });
   });
 };

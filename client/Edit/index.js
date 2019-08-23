@@ -3,6 +3,7 @@ import { Input, Select, Button } from 'antd';
 import { topic_create } from "./request";
 const { TextArea } = Input;
 const { Option } = Select;
+let editor = null;
 class Edit extends Component {
     params = { 
         title: '',
@@ -11,11 +12,8 @@ class Edit extends Component {
      }
     componentDidMount() {
         const _this = this;
-        var editor = new Editor();
+        editor = new Editor();
         editor.render($('.editor')[0]);
-        $('textarea').bind('input propertychange', function() {
-            _this.params.content = $(this).val();
-        });
     }
     render() { 
         return ( 
@@ -37,8 +35,12 @@ class Edit extends Component {
                             placeholder='文章支持 Markdown 语法, 请注意标记代码'
                             ></TextArea>
                         <Button onClick={() => {
+                            editor.codemirror.save();
+                            const content = document.getElementById('TextArea');
+                            this.params.content = content.value;
+                            console.log(this.params);
                             topic_create(this.params);
-                            this.props.history.push('/');
+                            // this.props.history.push('/');
                         }}>提交</Button>
                     </div>
 

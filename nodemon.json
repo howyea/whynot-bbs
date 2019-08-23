@@ -8,7 +8,9 @@
     "verbose": true,
     "watch": [
         "public",
-        "controllers"
+        "controllers",
+        "app.js",
+        "proxy"
     ],
     "env": {
         "NODE_ENV": "development"

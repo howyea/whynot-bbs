@@ -9,12 +9,13 @@ var UserProxy  = require('../proxy').User;
  * 需要管理员权限
  */
 exports.adminRequired = function (req, res, next) {
+    console.log(req.session.user.is_admin)
   if (!req.session.user) {
-    return res.render('notify/notify', { error: '你还没有登录。' });
+    return res.json({ error: '你还没有登录。' });
   }
 
   if (!req.session.user.is_admin) {
-    return res.render('notify/notify', { error: '需要管理员权限。' });
+    return res.json({ error: '需要管理员权限。' });
   }
 
   next();
@@ -60,7 +61,6 @@ exports.gen_session = gen_session;
 
 // 验证用户是否登录
 exports.authUser = function (req, res, next) {
-    console.log("1111111111");
   var ep = new eventproxy();
   ep.fail(next);
 
@@ -84,6 +84,7 @@ exports.authUser = function (req, res, next) {
 
     if (config.admins.hasOwnProperty(user.loginname)) {
       user.is_admin = true;
+      req.session.user.is_admin = true;
     }
 
     Message.getMessagesCount(user._id, ep.done(function (count) {
