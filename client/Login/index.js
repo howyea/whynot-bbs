@@ -26,15 +26,19 @@ class Login extends Component {
                             })
                         }}/>
                     </div>
-                    <Button type="primary" onClick={() => {
+                    <Button type="primary" onClick={async() => {
                         const {
                             loginname,
                             pass
                         } = this.state;
-                        signin({
+                        const _result = await signin({
                             loginname,
                             pass
                         })
+                        if(_result.success) {
+                            localStorage.setItem('accessToken', _result.accessToken);
+                            location.href = location.origin;
+                        }
                     }}>登录</Button>
                 </Card>
             </div>

@@ -156,6 +156,7 @@ exports.login = function (req, res, next) {
         }
       }
       res.json({
+            accessToken: user.accessToken,
             success: '登录成功'
       });
     }));
@@ -166,7 +167,9 @@ exports.login = function (req, res, next) {
 exports.signout = function (req, res, next) {
   req.session.destroy();
   res.clearCookie(config.auth_cookie_name, { path: '/' });
-  res.redirect('/');
+  res.json({
+      success: '登出成功'
+  });
 };
 
 exports.activeAccount = function (req, res, next) {
