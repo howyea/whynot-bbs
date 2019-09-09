@@ -111,7 +111,8 @@
     "dev:build:client": "webpack --config webpack.client.js --watch",
     "dev:start": "node server",
     "client": "webpack --config webpack.client.js --watch",
-    "start": "nodemon --exec babel-node app.js"
+    "start": "nodemon --exec babel-node app.js",
+    "start1": "babel-node app.js"
   },
   "snyk": true
 }

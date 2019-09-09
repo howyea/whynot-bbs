@@ -83,7 +83,7 @@ exports.getRepliesByTopicId = function (id, cb) {
           if (err) {
             return cb(err);
           }
-          replies[i].author = author || { _id: '' };
+          replies[i]._doc.author = author || { _id: '' };
           if (replies[i].content_is_html) {
             return proxy.emit('reply_find');
           }

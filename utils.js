@@ -39,6 +39,10 @@ export const render = (store, routes, req, context) => {
             rel="stylesheet"
             href="/public/libs/webuploader/webuploader.css"
             crossorigin="anonymous"/>
+            <link
+            rel="stylesheet"
+            href="/public/libs/bootstrap/css/bootstrap.css"
+            crossorigin="anonymous"/>
       </head>
       <body>
         <div id="root">${content}</div>
@@ -48,8 +52,11 @@ export const render = (store, routes, req, context) => {
           }
         </script>
         <script  src="/public/libs/jquery-2.1.0.js"></script>
+        <script  src="/public/libs/bootstrap/js/bootstrap.js"></script>
         <script  src="/public/libs/markdownit.js"></script>
         <script  src="/public/libs/editor/editor.js"></script>
+        <script  src="/public/libs/webuploader/webuploader.withoutimage.js"></script>
+        <script  src="/public/libs/editor/ext.js"></script>
         <script  src="/public/index.js"></script>
       </body>
     </html>

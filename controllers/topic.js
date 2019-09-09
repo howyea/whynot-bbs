@@ -45,7 +45,7 @@ exports.index = function (req, res, next) {
     function (topic, other_topics, no_reply_topics, is_collect) {
 
     res.json({
-      topic: {...topic._doc, linkedContent:topic.linkedContent},
+      topic,
       author_other_topics: other_topics,
       no_reply_topics: no_reply_topics,
       is_uped: isUped,
@@ -62,11 +62,11 @@ exports.index = function (req, res, next) {
       return res.renderError(message);
     }
 
-    topic.visit_count += 1;
+    topic._doc.visit_count += 1;
     topic.save();
 
-    topic.author  = author;
-    topic.replies = replies;
+    topic._doc.author  = author;
+    topic._doc.replies = replies;
 
     // 点赞数排名第三的回答，它的点赞数就是阈值
     topic.reply_up_threshold = (function () {
@@ -180,15 +180,16 @@ exports.put = function (req, res, next) {
 
 exports.showEdit = function (req, res, next) {
   var topic_id = req.params.tid;
-
+  console.log('sssss'+topic_id)
   Topic.getTopicById(topic_id, function (err, topic, tags) {
     if (!topic) {
-      res.render404('此话题不存在或已被删除。');
+      res.json({message:'此话题不存在或已被删除。'});
       return;
     }
 
     if (String(topic.author_id) === String(req.session.user._id) || req.session.user.is_admin) {
-      res.render('topic/edit', {
+        
+      res.json({
         action: 'edit',
         topic_id: topic._id,
         title: topic.title,
@@ -197,7 +198,7 @@ exports.showEdit = function (req, res, next) {
         tabs: config.tabs
       });
     } else {
-      res.renderError('对不起，你不能编辑此话题。', 403);
+      res.json({message:'对不起，你不能编辑此话题。'});
     }
   });
 };

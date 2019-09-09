@@ -1,27 +1,54 @@
 import React, { Component } from 'react';
-import { Card } from "antd";
+import { Card, Button } from "antd";
 import { getQueryString } from "../agency_file";
 import { topicDetail } from "./request";
 import { markdown } from "../../common/render_helper";
+import { Styled } from "./styled";
+import Reply from "./Reply";
+let editor = null;
 class Detail extends Component {
     state = {
-        topic: {}
+        topic: {
+            replies: []
+        }
     }
     async componentDidMount() {
+        editor = new Editor();
+        editor.render($('.editor')[0]);
        const { topic } = await  topicDetail(getQueryString('id'), {});
-      console.log(topic.linkedContent)
-
         this.setState({
             topic
         });
     }
+    edit = () => {
+        this.props.history.push('/edit?id='+getQueryString('id'))
+    }
     render() { 
         return ( 
-            <div>
-                <Card title={this.state.topic.title} bordered={false}>
+            <Styled>
+                <Card title={
+                    <div>
+                        <div>{this.state.topic.title}</div>
+                        <span onClick={this.edit}>编辑</span>
+                    </div>
+                } bordered={false}>
                     <div dangerouslySetInnerHTML={{ __html: markdown(this.state.topic.linkedContent)}}></div>
                 </Card>
-            </div>
+                <Card size="small" title="所有回复">
+                    {
+                        this.state.topic.replies.map((value,index) => {
+                            return <Reply key={index} content={value}></Reply>
+                        })
+                    }
+                </Card>
+                <div className='markdown_editor in_editor'>
+                    <div className='markdown_in_editor'>
+                        <textarea className='editor' name='r_content' rows='8'></textarea>
+                        <Button onClick={() => {
+                        }}>提交</Button>
+                    </div>
+                </div>
+            </Styled>
          );
     }
 }
