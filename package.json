@@ -112,7 +112,7 @@
     "dev:start": "node server",
     "client": "webpack --config webpack.client.js --watch",
     "start": "nodemon --exec babel-node app.js",
-    "start1": "babel-node app.js"
+    "start1": "forever start -c babel-node app.js"
   },
   "snyk": true
 }
