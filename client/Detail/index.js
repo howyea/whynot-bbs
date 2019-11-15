@@ -34,6 +34,13 @@ class Detail extends Component {
                 } bordered={false}>
                     <div dangerouslySetInnerHTML={{ __html: markdown(this.state.topic.linkedContent)}}></div>
                 </Card>
+                <div className='markdown_editor in_editor'>
+                    <div className='markdown_in_editor'>
+                        <textarea className='editor' name='r_content' rows='4'></textarea>
+                        <Button onClick={() => {
+                        }}>回复</Button>
+                    </div>
+                </div>
                 <Card size="small" title="所有回复">
                     {
                         this.state.topic.replies.map((value,index) => {
@@ -41,13 +48,7 @@ class Detail extends Component {
                         })
                     }
                 </Card>
-                <div className='markdown_editor in_editor'>
-                    <div className='markdown_in_editor'>
-                        <textarea className='editor' name='r_content' rows='8'></textarea>
-                        <Button onClick={() => {
-                        }}>提交</Button>
-                    </div>
-                </div>
+                
             </Styled>
          );
     }

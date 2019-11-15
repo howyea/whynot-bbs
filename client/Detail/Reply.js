@@ -39,16 +39,8 @@ class Reply extends Component {
         </Tooltip>
         <span style={{ paddingLeft: 8, cursor: 'auto' }}>{likes}</span>
       </span>,
-      <span key='comment-basic-dislike'>
-        <Tooltip title="Dislike">
-          <Icon
-            type="dislike"
-            theme={action === 'disliked' ? 'filled' : 'outlined'}
-            onClick={this.dislike}
-          />
-        </Tooltip>
-        <span style={{ paddingLeft: 8, cursor: 'auto' }}>{dislikes}</span>
-      </span>,
+      <span key="comment-basic-reply-to">修改</span>,
+      <span key="comment-basic-reply-to">删除</span>,
       <span key="comment-basic-reply-to">回复</span>,
     ];
 
