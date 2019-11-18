@@ -114,7 +114,7 @@
     "start": "nodemon --exec babel-node app.js",
     "start1": "forever start -l forever.log -c babel-node app.js",
     "start2": "babel-node app.js",
-    "start2": "nohup babel-node app.js &"
+    "start3": "nohup babel-node app.js &"
   },
   "snyk": true
 }
