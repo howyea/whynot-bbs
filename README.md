@@ -1,5 +1,4 @@
-Nodeclub
-=
+# whynot-bbs
 
 [![build status][travis-image]][travis-url]
 [![codecov.io][codecov-image]][codecov-url]
@@ -15,14 +14,9 @@ Nodeclub
 [node-image]: https://img.shields.io/badge/node.js-%3E=_4.2-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
 
-## 介绍
-
-Nodeclub 是使用 **Node.js** 和 **MongoDB** 开发的社区系统，界面优雅，功能丰富，小巧迅速，
-已在Node.js 中文技术社区 [CNode(http://cnodejs.org)](http://cnodejs.org) 得到应用，但你完全可以用它搭建自己的社区。
-
 ## 安装部署
 
-*不保证 Windows 系统的兼容性*
+_不保证 Windows 系统的兼容性_
 
 线上跑的是 [Node.js](https://nodejs.org) v8.12.0，[MongoDB](https://www.mongodb.org) 是 v4.0.3，[Redis](http://redis.io) 是 v4.0.9。
 
@@ -50,10 +44,6 @@ $ make test
 ```bash
 $ make test-cov
 ```
-
-## 贡献
-
-有任何意见或建议都欢迎提 issue，或者直接提给 [@alsotang](https://github.com/alsotang)
 
 ## License
 
