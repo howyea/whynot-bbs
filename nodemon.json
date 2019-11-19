@@ -1,19 +1,10 @@
 {
-    "restartable": "rs",
-    "ignore": [
-        ".git",
-        ".svn",
-        "node_modules/**/node_modules"
-    ],
-    "verbose": true,
-    "watch": [
-        "public",
-        "controllers",
-        "app.js",
-        "proxy"
-    ],
-    "env": {
-        "NODE_ENV": "development"
-    },
-    "ext": "js json"
+  "restartable": "rs",
+  "ignore": [".git", ".svn", "node_modules/**/node_modules"],
+  "verbose": true,
+  "watch": ["client", "public", "controllers", "app.js", "proxy"],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js json"
 }
