@@ -43,6 +43,10 @@ class Edit extends Component {
         editor.render($(".editor")[0]);
       }, 1000);
     } else {
+      setTimeout(() => {
+        editor = new Editor();
+        editor.render($(".editor")[0]);
+      }, 1000);
       this.setState({
         area: this.loadArea(),
         select: this.loadSelect()
@@ -54,7 +58,7 @@ class Edit extends Component {
       <div className="markdown_editor in_editor">
         <div className="markdown_in_editor">
           <TextArea
-            value={content}
+            defaultValue={content}
             id="TextArea"
             className="editor"
             rows="20"
@@ -62,10 +66,11 @@ class Edit extends Component {
           ></TextArea>
           <Button
             onClick={() => {
+              console.log(editor);
               editor.codemirror.save();
               const content = document.getElementById("TextArea");
               this.params.content = content.value;
-              console.log(this.params);
+
               topic_create(this.params);
               // this.props.history.push('/');
             }}
@@ -105,6 +110,9 @@ class Edit extends Component {
           placeholder="标题字数 10 字以上"
           onChange={e => {
             this.params.title = e.target.value;
+            this.setState({
+              title: e.target.value
+            });
           }}
         />
         {this.state.area}
