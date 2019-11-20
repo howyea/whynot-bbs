@@ -222,10 +222,10 @@ exports.showEdit = function(req, res, next) {
 };
 
 exports.update = function(req, res, next) {
-  var topic_id = req.params.tid;
+  var topic_id = req.body.tid;
   var title = req.body.title;
   var tab = req.body.tab;
-  var content = req.body.t_content;
+  var content = req.body.content;
 
   Topic.getTopicById(topic_id, function(err, topic, tags) {
     if (!topic) {
@@ -237,9 +237,9 @@ exports.update = function(req, res, next) {
       topic.author_id.equals(req.session.user._id) ||
       req.session.user.is_admin
     ) {
-      title = validator.trim(title);
-      tab = validator.trim(tab);
-      content = validator.trim(content);
+      title = validator.trim(title + "");
+      tab = validator.trim(tab + "");
+      content = validator.trim(content + "");
 
       // 验证
       var editError;
