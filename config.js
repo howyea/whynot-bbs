@@ -28,7 +28,7 @@ var config = {
   // cdn host，如 http://cnodejs.qiniudn.com
   site_static_host: "", // 静态文件存储域名
   // 社区的域名
-  host: "localhost:3000",
+  host: "http://bbs.codemojos.com",
   // 默认的Google tracker ID，自有站点请修改，申请地址：http://www.google.com/analytics/
   google_tracker_id: "",
   // 默认的cnzz tracker ID，自有站点请修改
@@ -54,10 +54,10 @@ var config = {
 
   // RSS配置
   rss: {
-    title: "CNode：Node.js专业中文社区",
-    link: "http://cnodejs.org",
+    title: "codemojos",
+    link: "http://bbs.codemojos.com",
     language: "zh-cn",
-    description: "CNode：Node.js专业中文社区",
+    description: "codemojos",
     //最多获取的RSS Item数量
     max_rss_items: 50
   },
@@ -86,7 +86,7 @@ var config = {
   GITHUB_OAUTH: {
     clientID: "your GITHUB_CLIENT_ID",
     clientSecret: "your GITHUB_CLIENT_SECRET",
-    callbackURL: "http://cnodejs.org/auth/github/callback"
+    callbackURL: "http://bbs.codemojos.com/auth/github/callback"
   },
   // 是否允许直接注册（否则只能走 github 的方式）
   allow_sign_up: true,
