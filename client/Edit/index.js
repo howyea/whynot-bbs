@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Input, Select, Button } from "antd";
-import { topic_create, topic_edit } from "./request";
+import { topic_create, topic_edit, get_topic } from "./request";
 import { getQueryString } from "../agency_file";
 
 const { TextArea } = Input;
@@ -28,9 +28,13 @@ class Edit extends Component {
     const _this = this;
 
     if (getQueryString("id")) {
-      const { title, tab, content } = await topic_edit({
+      this.params.tid = getQueryString("id");
+      const { title, tab, content } = await get_topic({
         id: getQueryString("id")
       });
+      this.params.title = title;
+      this.params.tab = tab;
+      this.params.content = content;
       this.setState({
         title,
         tab,
