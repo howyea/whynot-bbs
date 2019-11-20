@@ -71,8 +71,10 @@ class Edit extends Component {
               const content = document.getElementById("TextArea");
               this.params.content = content.value;
 
-              topic_create(this.params);
-              // this.props.history.push('/');
+              getQueryString("id")
+                ? topic_edit(this.params)
+                : topic_create(this.params);
+              this.props.history.push("/");
             }}
           >
             提交
